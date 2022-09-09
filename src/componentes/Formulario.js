@@ -1,11 +1,30 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import db from './firebase/firebaseConfig';
+import { collection, addDoc } from "firebase/firestore";
 
 const Formulario= ()=> {
     const [nombre, cambiarNombre]= useState ('');
     const [correo, cambiarCorreo]= useState ('');
+
+const onSubmit= async (e)=> {
+	e.preventDefault();
+
+	try {
+		await addDoc(collection(db, 'usuarios'), {
+		  nombre: nombre,
+		  correo:correo
+		});
+		 }catch (error){
+		 console.log("error existente en la carga");
+	     console.log(error);
+	  }
+	cambiarNombre('');
+	cambiarCorreo('');
+}
+
   return(
- <form action="">
+ <form action="" onSubmit={onSubmit}>
     <Input type="text"
     name="nombre"
     value={nombre}
@@ -55,4 +74,4 @@ const Boton = styled.button`
 	}
 `;
 
-export default Formulario;
+export default Formulario ;
