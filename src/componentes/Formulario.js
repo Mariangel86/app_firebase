@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import db from './firebase/firebaseConfig';
+import db from "../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
 const Formulario= ()=> {
-    const [nombre, cambiarNombre]= useState ('');
-    const [correo, cambiarCorreo]= useState ('');
+    const [nombre, cambiarNombre]= useState('');
+    const [correo, cambiarCorreo]= useState('');
 
 const onSubmit= async (e)=> {
 	e.preventDefault();
