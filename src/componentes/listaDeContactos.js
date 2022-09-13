@@ -1,14 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import db from "../firebase/firebaseConfig";
 import Contacto from "./Contacto";
-
+import {collection,OnSnapshot} from 'firebase/firestore';
 const ListaContactos=()=> {
-    const [contactos, cambiarContactos]= useState([
-        {id:1,nombre:'x',correo:'y',
-        id:2,nombre:'y',correo:'x'
-        }
-    ])
+    const [contactos, cambiarContactos]= useState([])
+    useEffect (()=>{
+        OnSnapshot (collection(db, 'usuarios'),
+        (snapshot)=>{
+            //console.log('se ejecuto la funcion');
+            //console.log(snapshot);
+            const arregloUsuarios = snapshot.docs.map((documento)=>{
+                return {...documento.data(), id: documento.id}
+            })
+            cambiarContactos(arregloUsuarios);
+            }
+        );
+    },[])
     return (
         contactos.length > 0 &&
         <ContenedorContactos>
