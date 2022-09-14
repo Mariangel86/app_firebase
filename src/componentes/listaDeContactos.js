@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import db from "../firebase/firebaseConfig";
 import Contacto from "./Contacto";
-import {collection,OnSnapshot} from 'firebase/firestore';
+import {collection, onSnapshot} from "firebase/firestore";
 const ListaContactos=()=> {
     const [contactos, cambiarContactos]= useState([])
     useEffect (()=>{
-        OnSnapshot (collection(db, 'usuarios'),
+        onSnapshot (collection(db, 'usuarios'),
         (snapshot)=>{
             //console.log('se ejecuto la funcion');
             //console.log(snapshot);
